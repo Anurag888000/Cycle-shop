@@ -22,7 +22,7 @@ interface Props {
 const PLACEHOLDER_IMG =
   "https://images.unsplash.com/photo-1485965120184-e224f7a1d7f6?auto=format&fit=crop&q=80&w=500";
 
-const ITEMS_PER_PAGE = 9;
+const ITEMS_PER_PAGE = 6;
 
 export default function BicycleList({ bicycles, isAdmin, onDelete }: Props) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -47,20 +47,30 @@ export default function BicycleList({ bicycles, isAdmin, onDelete }: Props) {
 
       {/* Pagination Controls */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-3 mt-12 pb-8">
-          <button
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="flex items-center justify-center gap-3 mt-12 pb-8"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
             className="flex items-center gap-1 px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 dark:hover:bg-gray-700 transition"
           >
             <ChevronLeft className="w-4 h-4" />
             Previous
-          </button>
+          </motion.button>
 
           <div className="flex gap-2">
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
+              <motion.button
                 key={page}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
                 onClick={() => setCurrentPage(page)}
                 className={`w-10 h-10 rounded-lg font-medium transition ${
                   currentPage === page
@@ -69,11 +79,13 @@ export default function BicycleList({ bicycles, isAdmin, onDelete }: Props) {
                 }`}
               >
                 {page}
-              </button>
+              </motion.button>
             ))}
           </div>
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() =>
               setCurrentPage((prev) => Math.min(prev + 1, totalPages))
             }
@@ -82,8 +94,8 @@ export default function BicycleList({ bicycles, isAdmin, onDelete }: Props) {
           >
             Next
             <ChevronRight className="w-4 h-4" />
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       )}
     </div>
   );
@@ -92,27 +104,49 @@ export default function BicycleList({ bicycles, isAdmin, onDelete }: Props) {
 function BicycleCard({ bike, index, isAdmin, onDelete }: any) {
   const [isLoading, setIsLoading] = useState(true);
 
+  // Optimize image URL for Supabase - resize and compress
+  const optimizeImageUrl = (url: string | null) => {
+    if (!url) return PLACEHOLDER_IMG;
+
+    // If it's a Supabase URL, add optimization params
+    if (url.includes("supabase")) {
+      // Add image transformation: width=400, quality=75 for faster loading
+      return `${url}?width=400&quality=75`;
+    }
+
+    return url;
+  };
+
+  const imageUrl = optimizeImageUrl(bike.image_url);
+  const blurPlaceholder =
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23e5e7eb' width='400' height='300'/%3E%3C/svg%3E";
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: index * 0.05 }}
-      className="group bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700 flex flex-col"
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.4, delay: index * 0.08, ease: "easeOut" }}
+      whileHover={{ y: -8, transition: { duration: 0.2 } }}
+      className="group bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 dark:border-gray-700 flex flex-col"
     >
-      {/* Image Section with Skeleton */}
+      {/* Image Section with Optimized Loading */}
       <div className="relative w-full h-48 bg-gray-200 dark:bg-gray-700 overflow-hidden">
         {isLoading && (
-          <div className="absolute inset-0 bg-linear-to-r from-gray-200 via-gray-100 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 animate-pulse" />
+          <div className="absolute inset-0 bg-gray-300 dark:bg-gray-600 animate-pulse z-10" />
         )}
         <img
-          src={bike.image_url || PLACEHOLDER_IMG}
+          src={imageUrl}
           alt={bike.name}
           loading="lazy"
+          decoding="async"
           onLoad={() => setIsLoading(false)}
           onError={() => setIsLoading(false)}
-          className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 will-change-transform ${
-            isLoading ? "opacity-0" : "opacity-100"
-          } transition-opacity duration-300`}
+          style={{
+            backgroundImage: `url(${blurPlaceholder})`,
+            backgroundSize: "cover",
+          }}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 will-change-transform"
         />
         {!isAdmin && (
           <div className="absolute top-4 right-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-indigo-600 dark:text-indigo-400 shadow-sm">
@@ -151,26 +185,36 @@ function BicycleCard({ bike, index, isAdmin, onDelete }: any) {
 
         {isAdmin ? (
           <div className="flex gap-2 mt-auto">
-            <Link
-              href={`/admin/edit/${bike.id}`}
-              className="flex-1 flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-50 dark:hover:bg-gray-600 hover:text-blue-600 dark:hover:text-blue-400 transition"
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex-1"
             >
-              <Edit2 className="w-4 h-4" /> Edit
-            </Link>
-            <button
+              <Link
+                href={`/admin/edit/${bike.id}`}
+                className="flex w-full items-center justify-center gap-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-50 dark:hover:bg-gray-600 hover:text-blue-600 dark:hover:text-blue-400 transition"
+              >
+                <Edit2 className="w-4 h-4" /> Edit
+              </Link>
+            </motion.div>
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => onDelete && onDelete(bike.id!)}
               className="flex-1 flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-50 dark:hover:bg-gray-600 hover:text-red-600 dark:hover:text-red-400 transition"
             >
               <Trash2 className="w-4 h-4" /> Delete
-            </button>
+            </motion.button>
           </div>
         ) : (
-          <Link
-            href={`/bicycles/${bike.id}`}
-            className="mt-auto w-full bg-gray-900 dark:bg-indigo-700 text-white py-3 rounded-xl font-medium hover:bg-indigo-600 dark:hover:bg-indigo-600 transition-colors flex items-center justify-center gap-2"
-          >
-            View Details <ArrowRight className="w-4 h-4" />
-          </Link>
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <Link
+              href={`/bicycles/${bike.id}`}
+              className="mt-auto w-full bg-gray-900 dark:bg-indigo-700 text-white py-3 rounded-xl font-medium hover:bg-indigo-600 dark:hover:bg-indigo-600 transition-colors flex items-center justify-center gap-2"
+            >
+              View Details <ArrowRight className="w-4 h-4" />
+            </Link>
+          </motion.div>
         )}
       </div>
     </motion.div>

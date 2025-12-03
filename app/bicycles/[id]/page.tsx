@@ -117,11 +117,19 @@ export default function BicycleDetail() {
             </div>
 
             <div className="flex gap-4 mt-auto">
-              <button className="flex-1 bg-indigo-600 dark:bg-indigo-700 hover:bg-indigo-700 dark:hover:bg-indigo-600 text-white font-bold py-4 px-8 rounded-xl flex items-center justify-center gap-2 transition transform hover:-translate-y-1 shadow-lg hover:shadow-indigo-500/30">
-                <ShoppingCart className="w-5 h-5" />
-                Add to Cart
-              </button>
-              <button className="flex-1 border-2 border-gray-200 dark:border-gray-600 hover:border-indigo-600 dark:hover:border-indigo-400 text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 font-bold py-4 px-8 rounded-xl transition">
+              <button
+                onClick={() => {
+                  const phone = "918090529034"; // +91 80905 29034
+                  const message = `Hi, I'm interested in buying \"${
+                    bike.name
+                  }\" priced at ₹${bike.price.toLocaleString()}. Is it available?`;
+                  const url = `https://wa.me/${phone}?text=${encodeURIComponent(
+                    message
+                  )}`;
+                  window.open(url, "_blank", "noopener,noreferrer");
+                }}
+                className="flex-1 border-2 border-gray-200 dark:border-gray-600 hover:border-indigo-600 dark:hover:border-indigo-400 text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 font-bold py-4 px-8 rounded-xl transition"
+              >
                 Buy Now
               </button>
             </div>

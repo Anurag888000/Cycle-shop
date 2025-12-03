@@ -92,7 +92,7 @@ export default function BicycleDetail() {
             </h1>
 
             <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400 mb-6">
-              ${bike.price.toLocaleString()}
+              ₹{bike.price.toLocaleString()}
             </div>
 
             <p className="text-gray-600 dark:text-gray-300 text-lg mb-8 leading-relaxed">

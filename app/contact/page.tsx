@@ -49,7 +49,7 @@ export default function ContactPage() {
   const getInquiryLabel = (type: string) => {
     switch (type) {
       case "bulk_order":
-        return "📦 Bulk Order";
+        return "Bulk Order";
       case "service":
         return "🔧 Service & Repair";
       case "support":

@@ -48,7 +48,7 @@ export default function AboutPage() {
           </div>
           <div className="bg-gray-200 dark:bg-gray-700 h-80 rounded-2xl overflow-hidden shadow-xl">
             <img
-              src="https://images.unsplash.com/photo-1559056961-1f4dbbf9d36a?auto=format&fit=crop&q=80&w=800"
+              src="https://res.cloudinary.com/dbfgpn8ww/image/upload/v1764760236/Support_efvjzg.png"
               alt="Bike Workshop"
               className="w-full h-full object-cover hover:scale-105 transition duration-700"
             />

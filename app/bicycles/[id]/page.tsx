@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Bicycle } from "@/types";
-import { ArrowLeft, Check, ShoppingCart, Star } from "lucide-react";
+import { ArrowLeft, Check, Star, MessageCircle } from "lucide-react"; // Added MessageCircle
 import { motion } from "framer-motion";
 
 export default function BicycleDetail() {
@@ -33,7 +33,7 @@ export default function BicycleDetail() {
   if (loading)
     return (
       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
-        <p className="text-gray-900 dark:text-white">Loading...</p>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
       </div>
     );
   if (!bike)
@@ -51,9 +51,10 @@ export default function BicycleDetail() {
       <div className="max-w-7xl mx-auto">
         <button
           onClick={() => router.back()}
-          className="flex items-center text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 mb-8 transition"
+          className="flex items-center text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 mb-8 transition group"
         >
-          <ArrowLeft className="w-4 h-4 mr-2" /> Back to Shop
+          <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />{" "}
+          Back to Shop
         </button>
 
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden lg:flex">
@@ -64,16 +65,15 @@ export default function BicycleDetail() {
               animate={{ opacity: 1, scale: 1 }}
               src={bike.image_url || placeholderImg}
               alt={bike.name}
-              className="max-h-full max-w-full object-contain mix-blend-multiply drop-shadow-2xl"
+              className="max-h-full max-w-full object-contain mix-blend-multiply dark:mix-blend-normal drop-shadow-2xl"
             />
           </div>
 
           {/* Details Section */}
           <div className="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
-            {/* ... rest of the component remains the same ... */}
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2 mb-4">
               <span className="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
-                New Arrival
+                Premium
               </span>
               <div className="flex text-yellow-400">
                 <Star className="w-4 h-4 fill-current" />
@@ -83,47 +83,64 @@ export default function BicycleDetail() {
                 <Star className="w-4 h-4" />
               </div>
               <span className="text-gray-400 dark:text-gray-500 text-sm">
-                (4.0)
+                (4.9 Review)
               </span>
             </div>
 
-            <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4 leading-tight">
               {bike.name}
             </h1>
 
-            <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400 mb-6">
+            <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400 mb-6 flex items-baseline gap-2">
               ₹{bike.price.toLocaleString()}
+              <span className="text-lg text-gray-400 dark:text-gray-600 font-normal line-through">
+                ₹{(bike.price * 1.2).toLocaleString()}
+              </span>
             </div>
 
             <p className="text-gray-600 dark:text-gray-300 text-lg mb-8 leading-relaxed">
               {bike.description}
             </p>
 
-            <div className="mb-8">
-              <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-4">
-                Key Features
+            <div className="mb-10">
+              <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-4 border-b dark:border-gray-700 pb-2">
+                Technical Specifications
               </h3>
-              <ul className="space-y-3">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {bike.features.split(",").map((feature, index) => (
                   <li
                     key={index}
-                    className="flex items-center text-gray-700 dark:text-gray-300"
+                    className="flex items-center text-gray-700 dark:text-gray-300 text-sm"
                   >
-                    <Check className="w-5 h-5 text-green-500 mr-3 shrink-0" />
+                    <div className="w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mr-3 shrink-0">
+                      <Check className="w-3 h-3 text-green-600 dark:text-green-400" />
+                    </div>
                     {feature.trim()}
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="flex gap-4 mt-auto">
-              <button className="flex-1 bg-indigo-600 dark:bg-indigo-700 hover:bg-indigo-700 dark:hover:bg-indigo-600 text-white font-bold py-4 px-8 rounded-xl flex items-center justify-center gap-2 transition transform hover:-translate-y-1 shadow-lg hover:shadow-indigo-500/30">
-                <ShoppingCart className="w-5 h-5" />
-                Add to Cart
+            <div className="mt-auto">
+              <button
+                onClick={() => {
+                  const phone = "918090529034";
+                  const message = `Hi Waheed Cycle Shop, I'm interested in buying the "${
+                    bike.name
+                  }" priced at ₹${bike.price.toLocaleString()}. Is it still available?`;
+                  const url = `https://wa.me/${phone}?text=${encodeURIComponent(
+                    message
+                  )}`;
+                  window.open(url, "_blank", "noopener,noreferrer");
+                }}
+                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 text-lg"
+              >
+                <MessageCircle className="w-6 h-6" />
+                Buy Now via WhatsApp
               </button>
-              <button className="flex-1 border-2 border-gray-200 dark:border-gray-600 hover:border-indigo-600 dark:hover:border-indigo-400 text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 font-bold py-4 px-8 rounded-xl transition">
-                Buy Now
-              </button>
+              <p className="text-center text-xs text-gray-400 dark:text-gray-500 mt-3">
+                Instant response • Secure transaction • Direct from shop
+              </p>
             </div>
           </div>
         </div>

@@ -43,6 +43,9 @@ export default function BicycleDetail() {
       </div>
     );
 
+  const placeholderImg =
+    "https://images.unsplash.com/photo-1485965120184-e224f7a1d7f6?auto=format&fit=crop&q=80&w=1000";
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -54,20 +57,20 @@ export default function BicycleDetail() {
         </button>
 
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden lg:flex">
-          {/* Image Section (Placeholder) */}
+          {/* Image Section */}
           <div className="lg:w-1/2 bg-gray-100 dark:bg-gray-700 relative h-96 lg:h-auto flex items-center justify-center p-8">
-            {/* Using a placeholder service since we don't have DB images yet */}
             <motion.img
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              src={`https://images.unsplash.com/photo-1485965120184-e224f7a1d7f6?auto=format&fit=crop&q=80&w=1000`}
-              alt="Bicycle"
+              src={bike.image_url || placeholderImg}
+              alt={bike.name}
               className="max-h-full max-w-full object-contain mix-blend-multiply drop-shadow-2xl"
             />
           </div>
 
           {/* Details Section */}
           <div className="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
+            {/* ... rest of the component remains the same ... */}
             <div className="flex items-center gap-2 mb-2">
               <span className="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
                 New Arrival

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Bicycle } from "@/types";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabaseClient"; // Import Supabase client
 
 interface Props {
   initialData?: Bicycle;
@@ -16,8 +17,10 @@ export default function BicycleForm({ initialData, isEdit }: Props) {
       price: 0,
       description: "",
       features: "",
+      image_url: "", // Initialize image_url
     }
   );
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -25,19 +28,45 @@ export default function BicycleForm({ initialData, isEdit }: Props) {
     setLoading(true);
 
     try {
+      let uploadedImageUrl = formData.image_url;
+
+      // 1. Handle Image Upload if a new file is selected
+      if (imageFile) {
+        const fileExt = imageFile.name.split(".").pop();
+        const fileName = `${Date.now()}.${fileExt}`;
+        const filePath = `${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from("bicycles") // Ensure this bucket exists in Supabase Storage
+          .upload(filePath, imageFile);
+
+        if (uploadError) {
+          throw new Error(`Upload failed: ${uploadError.message}`);
+        }
+
+        // Get the Public URL
+        const {
+          data: { publicUrl },
+        } = supabase.storage.from("bicycles").getPublicUrl(filePath);
+
+        uploadedImageUrl = publicUrl;
+      }
+
+      // 2. Prepare data for API
+      const dataToSubmit = { ...formData, image_url: uploadedImageUrl };
+
       const url = isEdit ? `/api/bicycles/${initialData?.id}` : "/api/bicycles";
       const method = isEdit ? "PUT" : "POST";
 
-      console.log("Submitting to:", url, "with data:", formData);
+      console.log("Submitting to:", url, "with data:", dataToSubmit);
 
       const res = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(dataToSubmit),
       });
 
       const responseData = await res.json();
-      console.log("Response:", responseData);
 
       if (res.ok) {
         router.push("/admin");
@@ -45,7 +74,6 @@ export default function BicycleForm({ initialData, isEdit }: Props) {
       } else {
         const errorMsg = responseData.error || "Error saving data";
         alert(`Error: ${errorMsg}`);
-        console.error("Error saving:", errorMsg);
       }
     } catch (error) {
       console.error("Exception:", error);
@@ -74,6 +102,33 @@ export default function BicycleForm({ initialData, isEdit }: Props) {
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         />
       </div>
+
+      {/* Image Upload Field */}
+      <div className="mb-4">
+        <label className="block text-gray-700 dark:text-gray-200 mb-2">
+          Image
+        </label>
+        {formData.image_url && (
+          <div className="mb-2">
+            <img
+              src={formData.image_url}
+              alt="Preview"
+              className="h-32 w-auto object-cover rounded border border-gray-300 dark:border-gray-600"
+            />
+          </div>
+        )}
+        <input
+          type="file"
+          accept="image/*"
+          className="w-full text-gray-700 dark:text-gray-200"
+          onChange={(e) => {
+            if (e.target.files && e.target.files[0]) {
+              setImageFile(e.target.files[0]);
+            }
+          }}
+        />
+      </div>
+
       <div className="mb-4">
         <label className="block text-gray-700 dark:text-gray-200">Price</label>
         <input

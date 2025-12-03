@@ -10,6 +10,10 @@ interface Props {
   onDelete?: (id: string) => void;
 }
 
+// Fallback image if user hasn't uploaded one
+const PLACEHOLDER_IMG =
+  "https://images.unsplash.com/photo-1485965120184-e224f7a1d7f6?auto=format&fit=crop&q=80&w=500";
+
 export default function BicycleList({ bicycles, isAdmin, onDelete }: Props) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -21,11 +25,11 @@ export default function BicycleList({ bicycles, isAdmin, onDelete }: Props) {
           transition={{ duration: 0.3, delay: index * 0.1 }}
           className="group bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700 flex flex-col"
         >
-          {/* Image Placeholder */}
+          {/* Image Section */}
           <div className="h-48 bg-gray-100 dark:bg-gray-700 relative overflow-hidden">
             <img
-              src="https://images.unsplash.com/photo-1485965120184-e224f7a1d7f6?auto=format&fit=crop&q=80&w=500"
-              alt="Cycle"
+              src={bike.image_url || PLACEHOLDER_IMG}
+              alt={bike.name}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
             {!isAdmin && (
@@ -61,11 +65,6 @@ export default function BicycleList({ bicycles, isAdmin, onDelete }: Props) {
                     {feature.trim()}
                   </span>
                 ))}
-              {bike.features.split(",").length > 2 && (
-                <span className="text-xs text-gray-400 dark:text-gray-500 px-1 py-1">
-                  +{bike.features.split(",").length - 2} more
-                </span>
-              )}
             </div>
 
             {isAdmin ? (

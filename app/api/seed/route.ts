@@ -10,6 +10,8 @@ const DEMO_BICYCLES = [
       "Professional-grade mountain bike with full suspension and advanced shock absorption for extreme terrain.",
     features:
       'Full Suspension, 29" Wheels, Hydraulic Disc Brakes, Carbon Frame, Lightweight',
+    image_url:
+      "https://images.pexels.com/photos/100582/pexels-photo-100582.jpeg",
   },
   {
     name: "Urban Commuter X",
@@ -17,6 +19,8 @@ const DEMO_BICYCLES = [
     description:
       "Perfect for city commuting with lightweight frame and comfortable riding position.",
     features: '26" Wheels, Aluminum Frame, 21 Speed, Fenders, Cargo Rack',
+    image_url:
+      "https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg",
   },
   {
     name: "Road Racer Elite",
@@ -24,6 +28,8 @@ const DEMO_BICYCLES = [
     description:
       "High-performance road bike designed for speed and efficiency on paved surfaces.",
     features: "Drop Bars, 700c Wheels, 16 Speed, Carbon Frame, Lightweight",
+    image_url:
+      "https://images.pexels.com/photos/1005823/pexels-photo-1005823.jpeg",
   },
   {
     name: "Kids Adventure",
@@ -32,6 +38,8 @@ const DEMO_BICYCLES = [
       "Safe and fun bicycle designed specifically for children aged 6-12.",
     features:
       'Training Wheels, 20" Wheels, Single Speed, Steel Frame, Colorful',
+    image_url:
+      "https://images.pexels.com/photos/986089/pexels-photo-986089.jpeg",
   },
   {
     name: "Hybrid Explorer",
@@ -40,6 +48,8 @@ const DEMO_BICYCLES = [
       "Versatile bike suitable for both road and light trail riding.",
     features:
       '27.5" Wheels, Front Suspension, 21 Speed, Hybrid Tires, Comfortable Seat',
+    image_url:
+      "https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg",
   },
   {
     name: "BMX Stunt King",
@@ -48,6 +58,8 @@ const DEMO_BICYCLES = [
       "Durable BMX bike perfect for tricks, stunts, and freestyle riding.",
     features:
       '20" Wheels, Steel Frame, Single Speed, Pegs Included, Trick Ready',
+    image_url:
+      "https://images.pexels.com/photos/1526814/pexels-photo-1526814.jpeg",
   },
   {
     name: "Cruiser Vintage Style",
@@ -56,6 +68,8 @@ const DEMO_BICYCLES = [
       "Classic vintage-inspired cruiser for relaxed, comfortable rides.",
     features:
       '26" Wheels, Comfortable Seat, 7 Speed, Fenders, Basket Compatible',
+    image_url:
+      "https://images.pexels.com/photos/106941/pexels-photo-106941.jpeg",
   },
   {
     name: "Electric Thunder",
@@ -64,12 +78,16 @@ const DEMO_BICYCLES = [
       "Powerful electric bicycle with long-range battery for effortless commuting.",
     features:
       "Electric Motor, 50km Range, USB Charging, LCD Display, Pedal Assist",
+    image_url:
+      "https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg",
   },
   {
     name: "Gravel Adventure",
     price: 899,
     description: "Perfect for gravel roads and mixed terrain adventures.",
     features: "Gravel Tires, Aluminum Frame, 18 Speed, Disc Brakes, Drop Bars",
+    image_url:
+      "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg",
   },
   {
     name: "Folding Compact",
@@ -78,8 +96,11 @@ const DEMO_BICYCLES = [
       "Portable folding bike ideal for travel and multi-modal commuting.",
     features:
       'Folds Compact, 20" Wheels, 8 Speed, Lightweight, Carry Bag Included',
+    image_url:
+      "https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg",
   },
 ];
+
 
 // POST: Seed database with demo bicycles
 export async function POST() {

@@ -4,5 +4,6 @@ export interface Bicycle {
   price: number;
   description: string;
   features: string;
+  image_url?: string; // Added field
   created_at?: string;
 }

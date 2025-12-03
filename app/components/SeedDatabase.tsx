@@ -2,7 +2,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function SeedDatabase() {
+interface Props {
+  onRefresh?: () => void;
+}
+
+export default function SeedDatabase({ onRefresh }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -33,10 +37,16 @@ export default function SeedDatabase() {
         setMessage(displayMessage);
         setIsSuccess(true);
 
-        // Refresh page after 2 seconds to show new data
+        // Refresh bicycle list immediately
+        if (onRefresh) {
+          onRefresh();
+        }
+
+        // Clear message after 3 seconds
         setTimeout(() => {
-          router.refresh();
-        }, 2000);
+          setMessage("");
+          setIsSuccess(false);
+        }, 3000);
       } else {
         setMessage(`✗ ${data.message || data.error}`);
         setIsSuccess(false);
@@ -77,10 +87,16 @@ export default function SeedDatabase() {
         setMessage(`✓ ${data.message}`);
         setIsSuccess(true);
 
-        // Refresh page after 2 seconds to show updated data
+        // Refresh bicycle list immediately
+        if (onRefresh) {
+          onRefresh();
+        }
+
+        // Clear message after 3 seconds
         setTimeout(() => {
-          router.refresh();
-        }, 2000);
+          setMessage("");
+          setIsSuccess(false);
+        }, 3000);
       } else {
         setMessage(`✗ Error: ${data.error}`);
         setIsSuccess(false);
@@ -141,7 +157,7 @@ export default function SeedDatabase() {
             </div>
             {isSuccess && (
               <p className="text-xs mt-2 opacity-75">
-                Refreshing page in 2 seconds...
+                List updated successfully!
               </p>
             )}
           </div>

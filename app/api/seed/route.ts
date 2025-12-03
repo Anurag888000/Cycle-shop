@@ -140,7 +140,7 @@ export async function DELETE() {
     const { error } = await supabaseServer
       .from("bicycles")
       .delete()
-      .gt("id", ""); // Delete all rows where id is not empty/null
+      .not("id", "is", null); // Delete all rows (more reliable than .gt("id", ""))
 
     if (error) {
       console.error("Delete error:", error);

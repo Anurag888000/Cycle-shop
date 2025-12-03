@@ -67,7 +67,7 @@ export default function AdminDashboard() {
       </div>
 
       <div className="max-w-6xl mx-auto mb-8">
-        <SeedDatabase />
+        <SeedDatabase onRefresh={refreshBicycles} />
       </div>
 
       <div className="max-w-6xl mx-auto">

@@ -71,7 +71,7 @@ export default function AnimatedHero({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-4xl md:text-6xl font-black mb-6 leading-tight"
+          className="text-4xl md:text-5xl font-black mb-6 leading-tight"
         >
           {title}
         </motion.h1>

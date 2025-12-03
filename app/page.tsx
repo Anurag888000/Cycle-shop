@@ -22,7 +22,7 @@ export default function Home() {
           <div className="flex items-center gap-2">
             <span className="text-3xl">🚴</span>
             <h1 className="text-2xl font-black tracking-tight text-gray-900 dark:text-white">
-              Cycle Shop
+              Waheed Cycle Shop
             </h1>
           </div>
           <Link

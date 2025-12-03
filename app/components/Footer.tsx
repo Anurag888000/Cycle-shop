@@ -16,7 +16,7 @@ export default function Footer() {
         {/* Brand Section */}
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-white dark:text-white flex items-center gap-2">
-            🚴 Cycle Shop
+            🚴 Waheed Cycle Shop
           </h2>
           <p className="text-sm text-gray-400 dark:text-gray-500">
             Premium bicycles for every terrain. Experience the ride of your life
@@ -73,15 +73,15 @@ export default function Footer() {
           <ul className="space-y-3 text-sm">
             <li className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
-              123 Bike Lane, Cycling City
+              Bhognipur, Kanpur Dehat, Uttar Pradesh, India 209111
             </li>
             <li className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
-              +1 (555) 123-4567
+              8090529034
             </li>
             <li className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
-              hello@cycleshop.com
+              mr.sam9900@gmail.com
             </li>
           </ul>
         </div>
@@ -113,7 +113,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-gray-800 dark:border-gray-800 mt-12 pt-8 text-center text-sm text-gray-500 dark:text-gray-600">
-        © {newXZDate().getFullYear()} Cycle Shop. All rights reserved.
+        © {newXZDate().getFullYear()} Waheed Cycle Shop. All rights reserved.
       </div>
     </footer>
   );

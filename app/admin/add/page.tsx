@@ -13,8 +13,10 @@ export default function AddBicycle() {
   }, [user, router]);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <h1 className="text-2xl font-bold text-center mb-6">Add New Bicycle</h1>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-8">
+      <h1 className="text-2xl font-bold text-center mb-6 text-gray-900 dark:text-white">
+        Add New Bicycle
+      </h1>
       <BicycleForm />
     </div>
   );

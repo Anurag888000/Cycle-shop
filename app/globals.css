@@ -24,3 +24,15 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Ensure inputs and textareas have proper dark mode styling */
+input,
+textarea,
+select {
+  color-scheme: light dark;
+}
+
+input::placeholder,
+textarea::placeholder {
+  opacity: 0.7;
+}

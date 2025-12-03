@@ -1,6 +1,8 @@
 "use client";
 import { Bicycle } from "@/types";
 import Link from "next/link";
+import { Edit2, Trash2, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface Props {
   bicycles: Bicycle[];
@@ -10,41 +12,87 @@ interface Props {
 
 export default function BicycleList({ bicycles, isAdmin, onDelete }: Props) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {bicycles.map((bike) => (
-        <div
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {bicycles.map((bike, index) => (
+        <motion.div
           key={bike.id}
-          className="border rounded-lg shadow-sm p-5 hover:shadow-md transition bg-white"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: index * 0.1 }}
+          className="group bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700 flex flex-col"
         >
-          <h3 className="text-xl font-bold text-gray-800">{bike.name}</h3>
-          <p className="text-green-600 font-semibold text-lg mt-1">
-            ${bike.price}
-          </p>
-          <p className="text-gray-600 mt-2 text-sm">{bike.description}</p>
-          <div className="mt-3">
-            <span className="text-xs font-bold text-gray-500 uppercase">
-              Features:
-            </span>
-            <p className="text-sm text-gray-700">{bike.features}</p>
+          {/* Image Placeholder */}
+          <div className="h-48 bg-gray-100 dark:bg-gray-700 relative overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1485965120184-e224f7a1d7f6?auto=format&fit=crop&q=80&w=500"
+              alt="Cycle"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            {!isAdmin && (
+              <div className="absolute top-4 right-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-indigo-600 dark:text-indigo-400 shadow-sm">
+                In Stock
+              </div>
+            )}
           </div>
 
-          {isAdmin && (
-            <div className="mt-4 flex gap-2">
-              <Link
-                href={`/admin/edit/${bike.id}`}
-                className="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600"
-              >
-                Edit
-              </Link>
-              <button
-                onClick={() => onDelete && onDelete(bike.id!)}
-                className="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600"
-              >
-                Delete
-              </button>
+          <div className="p-6 flex-1 flex flex-col">
+            <div className="flex justify-between items-start mb-2">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
+                {bike.name}
+              </h3>
+              <span className="text-lg font-bold text-indigo-600 dark:text-indigo-400">
+                ${bike.price}
+              </span>
             </div>
-          )}
-        </div>
+
+            <p className="text-gray-500 dark:text-gray-400 text-sm mb-4 line-clamp-2 flex-1">
+              {bike.description}
+            </p>
+
+            <div className="flex flex-wrap gap-2 mb-6">
+              {bike.features
+                .split(",")
+                .slice(0, 2)
+                .map((feature, i) => (
+                  <span
+                    key={i}
+                    className="text-xs bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded border border-gray-100 dark:border-gray-600"
+                  >
+                    {feature.trim()}
+                  </span>
+                ))}
+              {bike.features.split(",").length > 2 && (
+                <span className="text-xs text-gray-400 dark:text-gray-500 px-1 py-1">
+                  +{bike.features.split(",").length - 2} more
+                </span>
+              )}
+            </div>
+
+            {isAdmin ? (
+              <div className="flex gap-2 mt-auto">
+                <Link
+                  href={`/admin/edit/${bike.id}`}
+                  className="flex-1 flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-50 dark:hover:bg-gray-600 hover:text-blue-600 dark:hover:text-blue-400 transition"
+                >
+                  <Edit2 className="w-4 h-4" /> Edit
+                </Link>
+                <button
+                  onClick={() => onDelete && onDelete(bike.id!)}
+                  className="flex-1 flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-50 dark:hover:bg-gray-600 hover:text-red-600 dark:hover:text-red-400 transition"
+                >
+                  <Trash2 className="w-4 h-4" /> Delete
+                </button>
+              </div>
+            ) : (
+              <Link
+                href={`/bicycles/${bike.id}`}
+                className="mt-auto w-full bg-gray-900 dark:bg-indigo-700 text-white py-3 rounded-xl font-medium hover:bg-indigo-600 dark:hover:bg-indigo-600 transition-colors flex items-center justify-center gap-2"
+              >
+                View Details <ArrowRight className="w-4 h-4" />
+              </Link>
+            )}
+          </div>
+        </motion.div>
       ))}
     </div>
   );

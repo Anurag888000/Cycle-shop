@@ -19,10 +19,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+      </head>
       <body className={`${inter.className} flex flex-col min-h-screen`}>
         <AuthProvider>
           <Header /> {/* Added Header here */}
-          <div className="flex-grow">{children}</div>
+          <div className="grow">{children}</div>
           <Footer />
         </AuthProvider>
       </body>

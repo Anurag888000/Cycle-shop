@@ -4,6 +4,9 @@ import BicycleList from "@/components/BicycleList";
 import { Bicycle } from "@/types";
 import AnimatedHero from "@/components/AnimatedHero";
 
+const heroImageSrc =
+  "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?auto=format&fit=crop&w=1400&q=70&fm=webp";
+
 export default function Home() {
   const [bicycles, setBicycles] = useState<Bicycle[]>([]);
 
@@ -20,7 +23,7 @@ export default function Home() {
         title="Ride Your Dream"
         subtitle="Discover our premium collection of bicycles engineered for performance, comfort, and style."
         variant="primary"
-        backgroundImage="https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?auto=format&fit=crop&q=85&w=1600"
+        backgroundImage={heroImageSrc}
       />
 
       {/* Product Grid */}

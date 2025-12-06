@@ -20,6 +20,7 @@ export default function Home() {
         title="Ride Your Dream"
         subtitle="Discover our premium collection of bicycles engineered for performance, comfort, and style."
         variant="primary"
+        backgroundImage="https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?auto=format&fit=crop&q=85&w=1600"
       />
 
       {/* Product Grid */}

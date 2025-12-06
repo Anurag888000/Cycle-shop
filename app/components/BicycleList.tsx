@@ -1,6 +1,7 @@
 "use client";
 import { Bicycle } from "@/types";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Edit2,
   Trash2,
@@ -11,7 +12,7 @@ import {
   Circle,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, memo } from "react";
 
 interface Props {
   bicycles: Bicycle[];
@@ -28,7 +29,7 @@ const PLACEHOLDER_IMG =
 
 const ITEMS_PER_PAGE = 6;
 
-export default function BicycleList({
+const BicycleList = memo(function BicycleList({
   bicycles,
   isAdmin,
   onDelete,
@@ -107,7 +108,9 @@ export default function BicycleList({
       )}
     </div>
   );
-}
+});
+
+export default BicycleList;
 
 function BicycleCard({
   bike,
@@ -174,16 +177,18 @@ function BicycleCard({
 
       {/* Image Section */}
       <div className="relative w-full h-48 bg-gray-200 dark:bg-gray-700 overflow-hidden">
+        <Image
+          src={imageUrl}
+          alt={bike.name}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          loading="lazy"
+          onLoad={() => setIsLoading(false)}
+          className="object-cover group-hover:scale-105 transition-transform duration-500"
+        />
         {isLoading && (
           <div className="absolute inset-0 bg-gray-300 dark:bg-gray-600 animate-pulse z-10" />
         )}
-        <img
-          src={imageUrl}
-          alt={bike.name}
-          loading="lazy"
-          onLoad={() => setIsLoading(false)}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        />
       </div>
 
       <div className="p-6 flex-1 flex flex-col">

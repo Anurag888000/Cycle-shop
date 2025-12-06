@@ -65,18 +65,26 @@ export default function AnimatedHero({
 
       {/* Animated gradient orbs - lighter animation */}
       <motion.div
-        animate={imageLoaded ? {
-          x: [0, 20, 0],
-          y: [0, -20, 0],
-        } : {}}
+        animate={
+          imageLoaded
+            ? {
+                x: [0, 20, 0],
+                y: [0, -20, 0],
+              }
+            : {}
+        }
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         className={`absolute -top-32 -right-32 w-96 h-96 rounded-full blur-3xl opacity-40 bg-gradient-to-br ${selectedVariant.accentBg1}`}
       />
       <motion.div
-        animate={imageLoaded ? {
-          x: [0, -20, 0],
-          y: [0, 20, 0],
-        } : {}}
+        animate={
+          imageLoaded
+            ? {
+                x: [0, -20, 0],
+                y: [0, 20, 0],
+              }
+            : {}
+        }
         transition={{
           duration: 10,
           repeat: Infinity,

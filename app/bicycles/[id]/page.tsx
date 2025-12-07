@@ -2,14 +2,17 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Bicycle } from "@/types";
-import { ArrowLeft, Check, Star, MessageCircle } from "lucide-react"; // Added MessageCircle
+import { ArrowLeft, Check, Star, MessageCircle, Ruler } from "lucide-react";
 import { motion } from "framer-motion";
+import SizeGuideModal from "@/components/SizeGuideModal";
+import ShareButton from "@/components/ShareButton";
 
 export default function BicycleDetail() {
   const params = useParams();
   const router = useRouter();
   const [bike, setBike] = useState<Bicycle | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
   const id = params?.id as string;
 
   useEffect(() => {
@@ -71,20 +74,27 @@ export default function BicycleDetail() {
 
           {/* Details Section */}
           <div className="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
-                Premium
-              </span>
-              <div className="flex text-yellow-400">
-                <Star className="w-4 h-4 fill-current" />
-                <Star className="w-4 h-4 fill-current" />
-                <Star className="w-4 h-4 fill-current" />
-                <Star className="w-4 h-4 fill-current" />
-                <Star className="w-4 h-4" />
+            {/* Top Row: Badge, Rating, Share */}
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <span className="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+                  Premium
+                </span>
+                <div className="flex text-yellow-400">
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4" />
+                </div>
+                <span className="text-gray-400 dark:text-gray-500 text-sm">
+                  (4.9 Review)
+                </span>
               </div>
-              <span className="text-gray-400 dark:text-gray-500 text-sm">
-                (4.9 Review)
-              </span>
+              <ShareButton
+                title={bike.name}
+                text={`Check out this ${bike.name} at WAHEED Cycle Shop for just ₹${bike.price.toLocaleString()}!`}
+              />
             </div>
 
             <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4 leading-tight">
@@ -102,7 +112,7 @@ export default function BicycleDetail() {
               {bike.description}
             </p>
 
-            <div className="mb-10">
+            <div className="mb-6">
               <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-4 border-b dark:border-gray-700 pb-2">
                 Technical Specifications
               </h3>
@@ -121,7 +131,16 @@ export default function BicycleDetail() {
               </ul>
             </div>
 
-            <div className="mt-auto">
+            {/* Size Guide Button */}
+            <button
+              onClick={() => setShowSizeGuide(true)}
+              className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-medium mb-6 hover:underline"
+            >
+              <Ruler className="w-4 h-4" />
+              Find Your Size
+            </button>
+
+            <div className="mt-auto space-y-3">
               <button
                 onClick={() => {
                   const phone = "918090529034";
@@ -138,13 +157,17 @@ export default function BicycleDetail() {
                 <MessageCircle className="w-6 h-6" />
                 Buy Now via WhatsApp
               </button>
-              <p className="text-center text-xs text-gray-400 dark:text-gray-500 mt-3">
+              <p className="text-center text-xs text-gray-400 dark:text-gray-500">
                 Instant response • Secure transaction • Direct from shop
               </p>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Size Guide Modal */}
+      <SizeGuideModal isOpen={showSizeGuide} onClose={() => setShowSizeGuide(false)} />
     </div>
   );
 }
+

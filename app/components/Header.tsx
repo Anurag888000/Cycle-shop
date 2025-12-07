@@ -60,6 +60,9 @@ export default function Header() {
           <NavLink href="/" isScrolled={isScrolled}>
             Home
           </NavLink>
+          <NavLink href="/categories" isScrolled={isScrolled}>
+            Categories
+          </NavLink>
           <NavLink href="/about" isScrolled={isScrolled}>
             About
           </NavLink>
@@ -114,6 +117,9 @@ export default function Header() {
           >
             <MobileNavLink href="/" onClick={() => setIsMenuOpen(false)}>
               Home
+            </MobileNavLink>
+            <MobileNavLink href="/categories" onClick={() => setIsMenuOpen(false)}>
+              Categories
             </MobileNavLink>
             <MobileNavLink href="/about" onClick={() => setIsMenuOpen(false)}>
               About

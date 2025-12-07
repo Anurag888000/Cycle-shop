@@ -3,13 +3,21 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import Footer from "@/components/Footer";
-import Header from "@/components/Header"; // Import the new Header
+import Header from "@/components/Header";
+import WhatsAppWidget from "@/components/WhatsAppWidget";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Cycle Shop",
-  description: "Manage your cycles",
+  title: "WAHEED Cycle Shop | Premium Bicycles in Bhognipur",
+  description: "Discover premium bicycles, expert repairs, and genuine parts at WAHEED Cycle Shop. Serving cyclists in Bhognipur since 2010.",
+  keywords: "bicycle shop, cycle shop, bikes, mountain bikes, road bikes, electric bikes, Bhognipur, Kanpur",
+  openGraph: {
+    title: "WAHEED Cycle Shop | Premium Bicycles",
+    description: "Quality bicycles, expert service, and genuine parts.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -25,11 +33,14 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} flex flex-col min-h-screen`}>
         <AuthProvider>
-          <Header /> {/* Added Header here */}
+          <Header />
           <div className="grow">{children}</div>
           <Footer />
+          <WhatsAppWidget />
+          <ScrollToTop />
         </AuthProvider>
       </body>
     </html>
   );
 }
+

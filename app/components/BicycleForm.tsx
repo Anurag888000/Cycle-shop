@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Bicycle } from "@/types";
+import { Bicycle, BikeCategory, BIKE_CATEGORIES } from "@/types";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 import { Upload, X, Save, Image as ImageIcon } from "lucide-react";
@@ -19,6 +19,7 @@ export default function BicycleForm({ initialData, isEdit }: Props) {
       description: "",
       features: "",
       image_url: "",
+      category: undefined,
     }
   );
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -181,18 +182,41 @@ export default function BicycleForm({ initialData, isEdit }: Props) {
             </div>
             <div>
               <label className="block text-sm font-bold text-gray-700 dark:text-gray-200 mb-2">
-                Features
+                Category
               </label>
-              <input
-                type="text"
-                placeholder="Alloy, 7-Speed..."
+              <select
                 className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 outline-none transition dark:text-white"
-                value={formData.features}
+                value={formData.category || ""}
                 onChange={(e) =>
-                  setFormData({ ...formData, features: e.target.value })
+                  setFormData({
+                    ...formData,
+                    category: (e.target.value as BikeCategory) || undefined,
+                  })
                 }
-              />
+              >
+                <option value="">Select Category</option>
+                {BIKE_CATEGORIES.map((cat) => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.icon} {cat.name}
+                  </option>
+                ))}
+              </select>
             </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-bold text-gray-700 dark:text-gray-200 mb-2">
+              Features
+            </label>
+            <input
+              type="text"
+              placeholder="Alloy Frame, 7-Speed, Disc Brakes..."
+              className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 outline-none transition dark:text-white"
+              value={formData.features}
+              onChange={(e) =>
+                setFormData({ ...formData, features: e.target.value })
+              }
+            />
           </div>
 
           <div>
@@ -233,3 +257,4 @@ export default function BicycleForm({ initialData, isEdit }: Props) {
     </form>
   );
 }
+

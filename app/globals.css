@@ -36,3 +36,151 @@ input::placeholder,
 textarea::placeholder {
   opacity: 0.7;
 }
+
+@keyframes liquidPulse {
+  0% {
+    transform: rotate(-2deg) scale(0.97);
+    opacity: 0.6;
+  }
+  50% {
+    transform: rotate(3deg) scale(1.02);
+    opacity: 0.95;
+  }
+  100% {
+    transform: rotate(-2deg) scale(0.97);
+    opacity: 0.65;
+  }
+}
+
+@keyframes liquidFlow {
+  0% {
+    transform: translateX(-100%) translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(0) translateY(-15px) rotate(180deg);
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(100%) translateY(0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes liquidWave {
+  0%, 100% {
+    transform: translateY(0px) scaleY(1);
+  }
+  25% {
+    transform: translateY(-12px) scaleY(1.05);
+  }
+  50% {
+    transform: translateY(0px) scaleY(1);
+  }
+  75% {
+    transform: translateY(8px) scaleY(0.95);
+  }
+}
+
+@keyframes liquidGlow {
+  0% {
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.3), 
+                inset 0 0 20px rgba(99, 102, 241, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.6),
+                inset 0 0 30px rgba(99, 102, 241, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.3),
+                inset 0 0 20px rgba(99, 102, 241, 0.1);
+  }
+}
+
+@keyframes liquidBubble {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-8px) scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-16px) scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes shimmerFlow {
+  0% {
+    transform: translateX(-200%) skewX(-45deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-45deg);
+  }
+}
+
+@keyframes floatingOrb {
+  0% {
+    transform: translateY(0px) translateX(0px) scale(1);
+  }
+  33% {
+    transform: translateY(-20px) translateX(15px) scale(1.05);
+  }
+  66% {
+    transform: translateY(-10px) translateX(-15px) scale(0.95);
+  }
+  100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+  }
+}
+
+@keyframes liquidSwirl {
+  0% {
+    transform: rotate(0deg) translateX(30px) rotate(0deg);
+    opacity: 0.3;
+  }
+  50% {
+    transform: rotate(180deg) translateX(40px) rotate(-180deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotate(360deg) translateX(30px) rotate(-360deg);
+    opacity: 0.3;
+  }
+}
+
+.liquid-wave {
+  animation: liquidPulse 7s ease-in-out infinite;
+}
+
+.liquid-flow {
+  animation: liquidFlow 3s ease-in-out infinite;
+}
+
+.liquid-glow {
+  animation: liquidGlow 2.5s ease-in-out infinite;
+}
+
+.liquid-bubble {
+  animation: liquidBubble 2s ease-out infinite;
+}
+
+.shimmer-flow {
+  animation: shimmerFlow 2s ease-in-out infinite;
+}
+
+.floating-orb {
+  animation: floatingOrb 6s ease-in-out infinite;
+}
+
+.liquid-swirl {
+  animation: liquidSwirl 4s ease-in-out infinite;
+}

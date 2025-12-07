@@ -15,6 +15,11 @@ import {
   Save,
   Check,
   Loader2,
+<<<<<<< Updated upstream
+=======
+  Share2,
+  FileText,
+>>>>>>> Stashed changes
 } from "lucide-react";
 
 interface ReceiptItem {
@@ -381,6 +386,127 @@ export default function ReceiptGenerator({
     }
   };
 
+<<<<<<< Updated upstream
+=======
+  // Share receipt as PDF/Image (mobile-friendly)
+  const handleSharePDF = () => {
+    const receiptHTML = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Receipt - ${receiptNo}</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { font-family: 'Segoe UI', Tahoma, sans-serif; padding: 15px; max-width: 100%; background: #fff; }
+            .receipt { max-width: 350px; margin: 0 auto; }
+            .header { text-align: center; border-bottom: 2px dashed #333; padding-bottom: 15px; margin-bottom: 15px; }
+            .shop-name { font-size: 20px; font-weight: bold; color: #333; }
+            .shop-details { font-size: 11px; color: #666; margin-top: 5px; }
+            .info { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 15px; }
+            table { width: 100%; font-size: 11px; border-collapse: collapse; margin-bottom: 15px; }
+            th { text-align: left; border-bottom: 1px solid #333; padding: 6px 4px; }
+            td { padding: 5px 4px; border-bottom: 1px dashed #ddd; }
+            .amount { text-align: right; }
+            .totals { border-top: 2px dashed #333; padding-top: 10px; }
+            .total-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 12px; }
+            .grand-total { font-size: 16px; font-weight: bold; border-top: 1px solid #333; margin-top: 8px; padding-top: 8px; }
+            .footer { text-align: center; margin-top: 20px; font-size: 10px; color: #888; }
+            .share-hint { text-align: center; margin-top: 20px; padding: 15px; background: #f0f0f0; border-radius: 8px; }
+            .share-hint p { font-size: 12px; color: #666; margin-bottom: 10px; }
+            .share-btn { display: inline-block; padding: 10px 20px; background: #4F46E5; color: white; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; }
+            @media print { .share-hint { display: none; } }
+          </style>
+        </head>
+        <body>
+          <div class="receipt">
+            <div class="header">
+              <div class="shop-name">${SHOP_DETAILS.name}</div>
+              <div class="shop-details">
+                ${SHOP_DETAILS.address}<br/>
+                📞 ${SHOP_DETAILS.phone}<br/>
+                GSTIN: ${SHOP_DETAILS.gstin}
+              </div>
+            </div>
+            
+            <div class="info">
+              <div>
+                <strong>Receipt:</strong> ${receiptNo}<br/>
+                <strong>Date:</strong> ${new Date().toLocaleDateString("en-IN")}
+              </div>
+              <div style="text-align: right;">
+                ${customerName ? `<strong>Customer:</strong> ${customerName}<br/>` : ""}
+                ${customerPhone ? `📞 ${customerPhone}` : ""}
+              </div>
+            </div>
+            
+            <table>
+              <thead>
+                <tr><th>Item</th><th>Qty</th><th>Price</th><th class="amount">Amount</th></tr>
+              </thead>
+              <tbody>
+                ${items.map(item => `
+                  <tr>
+                    <td>${item.name}</td>
+                    <td>${item.quantity}</td>
+                    <td>${formatCurrency(item.price)}</td>
+                    <td class="amount">${formatCurrency(item.price * item.quantity)}</td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+            
+            <div class="totals">
+              <div class="total-row">
+                <span>Subtotal:</span>
+                <span>${formatCurrency(subtotal)}</span>
+              </div>
+              ${showDiscount && discountPercent > 0 ? `
+                <div class="total-row" style="color: #059652;">
+                  <span>Discount (${discountPercent}%):</span>
+                  <span>-${formatCurrency(discountAmount)}</span>
+                </div>
+              ` : ""}
+              ${gstEnabled ? `
+                <div class="total-row">
+                  <span>CGST (${gstRate / 2}%):</span>
+                  <span>${formatCurrency(cgst)}</span>
+                </div>
+                <div class="total-row">
+                  <span>SGST (${gstRate / 2}%):</span>
+                  <span>${formatCurrency(sgst)}</span>
+                </div>
+              ` : ""}
+              <div class="total-row grand-total">
+                <span>Grand Total:</span>
+                <span>${formatCurrency(grandTotal)}</span>
+              </div>
+            </div>
+            
+            ${notes ? `<div style="margin-top: 10px; padding: 8px; background: #f5f5f5; font-size: 10px;"><strong>Notes:</strong> ${notes}</div>` : ""}
+            
+            <div class="footer">
+              Thank you for shopping with us! 🚴<br/>
+              Visit again soon.
+            </div>
+            
+            <div class="share-hint">
+              <p>📱 Take a screenshot or use "Print/Save as PDF" to share</p>
+              <button class="share-btn" onclick="window.print()">Save as PDF / Print</button>
+            </div>
+          </div>
+        </body>
+      </html>
+    `;
+
+    const shareWindow = window.open("", "_blank");
+    if (shareWindow) {
+      shareWindow.document.write(receiptHTML);
+      shareWindow.document.close();
+    }
+  };
+
+>>>>>>> Stashed changes
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -443,30 +569,50 @@ export default function ReceiptGenerator({
 
             {/* Add Items */}
             <div className="mb-6">
+<<<<<<< Updated upstream
               <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
                 Add Items
               </h3>
 
               {/* From Inventory */}
               <div className="flex gap-2 mb-3">
+=======
+              <h3 className="text-xs sm:text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 sm:mb-3">
+                Add Items
+              </h3>
+
+              {/* From Inventory - Stack on mobile */}
+              <div className="flex flex-col sm:flex-row gap-2 mb-3">
+>>>>>>> Stashed changes
                 <div className="relative flex-1">
                   <select
                     value={selectedBicycle}
                     onChange={(e) => setSelectedBicycle(e.target.value)}
+<<<<<<< Updated upstream
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 appearance-none cursor-pointer transition"
                   >
                     <option value="">Select from inventory...</option>
+=======
+                    className="w-full px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500 appearance-none cursor-pointer transition"
+                  >
+                    <option value="">Select item...</option>
+>>>>>>> Stashed changes
                     {bicycles.map((b) => (
                       <option key={b.id} value={b.id}>
                         {b.name} - {formatCurrency(b.price)}
                       </option>
                     ))}
                   </select>
+<<<<<<< Updated upstream
                   <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+=======
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+>>>>>>> Stashed changes
                 </div>
                 <button
                   onClick={addBicycleItem}
                   disabled={!selectedBicycle}
+<<<<<<< Updated upstream
                   className="px-4 py-3 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-300 text-white rounded-xl font-medium transition flex items-center gap-2"
                 >
                   <Plus className="w-4 h-4" /> Add
@@ -495,6 +641,40 @@ export default function ReceiptGenerator({
                   className="px-4 py-3 bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-300 text-white rounded-xl font-medium transition"
                 >
                   <Plus className="w-4 h-4" />
+=======
+                  className="w-full sm:w-auto px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg text-sm font-medium transition flex items-center justify-center gap-1"
+                >
+                  <Plus className="w-4 h-4" />
+                  Add Item
+                </button>
+              </div>
+
+              {/* Custom Item - Stack on mobile */}
+              <div className="flex flex-col sm:flex-row gap-2">
+                <div className="flex gap-2 flex-1">
+                  <input
+                    type="text"
+                    placeholder="Custom item"
+                    value={customItemName}
+                    onChange={(e) => setCustomItemName(e.target.value)}
+                    className="flex-1 min-w-0 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500 transition"
+                  />
+                  <input
+                    type="number"
+                    placeholder="₹"
+                    value={customItemPrice}
+                    onChange={(e) => setCustomItemPrice(e.target.value)}
+                    className="w-20 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500 transition"
+                  />
+                </div>
+                <button
+                  onClick={addCustomItem}
+                  disabled={!customItemName || !customItemPrice}
+                  className="w-full sm:w-auto px-4 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg text-sm font-medium transition flex items-center justify-center gap-1"
+                >
+                  <Plus className="w-4 h-4" />
+                  Add Custom
+>>>>>>> Stashed changes
                 </button>
               </div>
             </div>
@@ -835,6 +1015,7 @@ export default function ReceiptGenerator({
 
               {/* Action Buttons */}
               <div className="flex flex-col gap-3 mt-6 max-w-sm mx-auto">
+<<<<<<< Updated upstream
                 <div className="flex gap-3">
                   <button
                     onClick={handleSaveReceipt}
@@ -858,11 +1039,55 @@ export default function ReceiptGenerator({
                     onClick={handlePrint}
                     disabled={items.length === 0}
                     className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98] transition"
+=======
+                {/* Save Button - Full width on mobile */}
+                <button
+                  onClick={handleSaveReceipt}
+                  disabled={items.length === 0 || isSaving || isSaved}
+                  className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98] transition ${
+                    isSaved
+                      ? "bg-emerald-500 text-white"
+                      : "bg-indigo-600 hover:bg-indigo-700 text-white"
+                  }`}
+                >
+                  {isSaving ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : isSaved ? (
+                    <Check className="w-5 h-5" />
+                  ) : (
+                    <Save className="w-5 h-5" />
+                  )}
+                  {isSaving ? "Saving..." : isSaved ? "Saved!" : "Save Receipt"}
+                </button>
+
+                {/* Share/Print Row */}
+                <div className="grid grid-cols-2 gap-3">
+                  {/* Share PDF - Mobile friendly */}
+                  <button
+                    onClick={handleSharePDF}
+                    disabled={items.length === 0}
+                    className="flex items-center justify-center gap-2 px-3 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98] transition"
+                  >
+                    <Share2 className="w-5 h-5" />
+                    <span className="hidden xs:inline">Share</span> PDF
+                  </button>
+                  
+                  {/* Print - Better for desktop */}
+                  <button
+                    onClick={handlePrint}
+                    disabled={items.length === 0}
+                    className="flex items-center justify-center gap-2 px-3 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98] transition"
+>>>>>>> Stashed changes
                   >
                     <Printer className="w-5 h-5" />
                     Print
                   </button>
                 </div>
+<<<<<<< Updated upstream
+=======
+
+                {/* WhatsApp Share */}
+>>>>>>> Stashed changes
                 <button
                   onClick={handleWhatsAppShare}
                   disabled={items.length === 0}

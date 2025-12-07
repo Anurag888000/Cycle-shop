@@ -17,6 +17,10 @@ import {
   Filter,
   X,
   Eye,
+<<<<<<< Updated upstream
+=======
+  Share2,
+>>>>>>> Stashed changes
 } from "lucide-react";
 import Link from "next/link";
 
@@ -312,6 +316,7 @@ export default function SalesAnalyticsDashboard() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-12">
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40">
+<<<<<<< Updated upstream
         <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
           <div className="flex items-center gap-4">
             <Link
@@ -327,10 +332,28 @@ export default function SalesAnalyticsDashboard() {
               </h1>
               <p className="text-xs text-gray-500 dark:text-gray-400">
                 Track revenue and analyze sales performance
+=======
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex justify-between items-center">
+          <div className="flex items-center gap-2 sm:gap-4">
+            <Link
+              href="/admin"
+              className="p-1.5 sm:p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
+            >
+              <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400" />
+            </Link>
+            <div>
+              <h1 className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-1.5 sm:gap-2">
+                <BarChart3 className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-600" />
+                <span className="hidden xs:inline">Sales</span> Analytics
+              </h1>
+              <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 hidden sm:block">
+                Track revenue and analyze sales
+>>>>>>> Stashed changes
               </p>
             </div>
           </div>
 
+<<<<<<< Updated upstream
           <div className="flex items-center gap-3">
             <button
               onClick={fetchAnalytics}
@@ -339,15 +362,32 @@ export default function SalesAnalyticsDashboard() {
             >
               <RefreshCw
                 className={`w-5 h-5 text-gray-600 dark:text-gray-400 ${loading ? "animate-spin" : ""}`}
+=======
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button
+              onClick={fetchAnalytics}
+              disabled={loading}
+              className="p-1.5 sm:p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
+            >
+              <RefreshCw
+                className={`w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400 ${loading ? "animate-spin" : ""}`}
+>>>>>>> Stashed changes
               />
             </button>
             <button
               onClick={handleExportExcel}
               disabled={!analytics?.receipts?.length}
+<<<<<<< Updated upstream
               className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed transition"
             >
               <Download className="w-4 h-4" />
               Export Excel
+=======
+              className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed transition"
+            >
+              <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">Export</span> Excel
+>>>>>>> Stashed changes
             </button>
           </div>
         </div>
@@ -712,6 +752,7 @@ export default function SalesAnalyticsDashboard() {
                         {formatCurrency(receipt.grand_total)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-center">
+<<<<<<< Updated upstream
                         <div className="flex items-center justify-center gap-2">
                           <button
                             onClick={() => setViewReceipt(receipt)}
@@ -728,6 +769,107 @@ export default function SalesAnalyticsDashboard() {
                           >
                             <Printer className="w-4 h-4" />
                             Reprint
+=======
+                        <div className="flex items-center justify-center gap-1 sm:gap-2">
+                          <button
+                            onClick={() => setViewReceipt(receipt)}
+                            className="inline-flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 text-blue-700 dark:text-blue-300 rounded-lg text-xs sm:text-sm font-medium transition"
+                            title="View Receipt"
+                          >
+                            <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                            <span className="hidden sm:inline">View</span>
+                          </button>
+                          {/* Share PDF on mobile, Print on desktop */}
+                          <button
+                            onClick={() => handleDownloadReceipt(receipt)}
+                            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 dark:bg-gray-700 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-700 dark:text-gray-300 hover:text-indigo-600 rounded-lg text-sm font-medium transition"
+                            title="Print Receipt"
+                          >
+                            <Printer className="w-4 h-4" />
+                            Print
+                          </button>
+                          <button
+                            onClick={() => {
+                              // Open share-friendly view on mobile
+                              const shareWindow = window.open("", "_blank");
+                              if (shareWindow) {
+                                shareWindow.document.write(`
+                                  <!DOCTYPE html>
+                                  <html>
+                                    <head>
+                                      <title>Receipt - ${receipt.receipt_no}</title>
+                                      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                      <style>
+                                        * { margin: 0; padding: 0; box-sizing: border-box; }
+                                        body { font-family: system-ui, sans-serif; padding: 15px; background: #fff; }
+                                        .receipt { max-width: 350px; margin: 0 auto; }
+                                        .header { text-align: center; border-bottom: 2px dashed #333; padding-bottom: 12px; margin-bottom: 12px; }
+                                        .shop-name { font-size: 18px; font-weight: bold; }
+                                        .shop-details { font-size: 10px; color: #666; margin-top: 4px; }
+                                        .info { font-size: 11px; margin-bottom: 12px; }
+                                        .totals { border-top: 2px dashed #333; padding-top: 10px; }
+                                        .row { display: flex; justify-content: space-between; padding: 3px 0; font-size: 12px; }
+                                        .total { font-size: 16px; font-weight: bold; border-top: 1px solid #333; margin-top: 8px; padding-top: 8px; }
+                                        .footer { text-align: center; margin-top: 15px; font-size: 10px; color: #888; }
+                                        .share-btn { display: block; width: 100%; padding: 12px; background: #4F46E5; color: white; border: none; border-radius: 8px; font-size: 14px; margin-top: 20px; }
+                                        @media print { .share-btn { display: none; } }
+                                      </style>
+                                    </head>
+                                    <body>
+                                      <div class="receipt">
+                                        <div class="header">
+                                          <div class="shop-name">WAHEED Cycle Shop</div>
+                                          <div class="shop-details">Main Market Road • 📞 +91 98765 43210</div>
+                                        </div>
+                                        <div class="info">
+                                          <strong>Receipt:</strong> ${receipt.receipt_no}<br/>
+                                          <strong>Date:</strong> ${new Date(receipt.created_at!).toLocaleDateString("en-IN")}<br/>
+                                          ${receipt.customer_name ? `<strong>Customer:</strong> ${receipt.customer_name}` : ""}
+                                        </div>
+                                        
+                                        <!-- Items Table -->
+                                        <table style="width:100%; border-collapse: collapse; margin-bottom: 12px; font-size: 12px;">
+                                          <thead>
+                                            <tr style="background:#f3f4f6; text-align:left;">
+                                              <th style="padding:4px; border-bottom:1px solid #ddd;">Item</th>
+                                              <th style="padding:4px; border-bottom:1px solid #ddd; text-align:center;">Qty</th>
+                                              <th style="padding:4px; border-bottom:1px solid #ddd; text-align:right;">Price</th>
+                                              <th style="padding:4px; border-bottom:1px solid #ddd; text-align:right;">Amt</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            ${(receipt.items || []).map(item => `
+                                              <tr>
+                                                <td style="padding:4px; border-bottom:1px solid #eee;">${item.item_name}</td>
+                                                <td style="padding:4px; border-bottom:1px solid #eee; text-align:center;">${item.quantity}</td>
+                                                <td style="padding:4px; border-bottom:1px solid #eee; text-align:right;">${item.price}</td>
+                                                <td style="padding:4px; border-bottom:1px solid #eee; text-align:right;">${item.amount}</td>
+                                              </tr>
+                                            `).join('')}
+                                          </tbody>
+                                        </table>
+
+                                        <div class="totals">
+                                          <div class="row"><span>Subtotal:</span><span>${formatCurrency(receipt.subtotal)}</span></div>
+                                          ${receipt.discount_amount > 0 ? `<div class="row" style="color:#059652"><span>Discount:</span><span>-${formatCurrency(receipt.discount_amount)}</span></div>` : ""}
+                                          ${receipt.gst_enabled ? `<div class="row"><span>GST (${receipt.gst_rate}%):</span><span>${formatCurrency(receipt.gst_amount)}</span></div>` : ""}
+                                          <div class="row total"><span>Total:</span><span>${formatCurrency(receipt.grand_total)}</span></div>
+                                        </div>
+                                        <div class="footer">Thank you! 🚴</div>
+                                        <button class="share-btn" onclick="window.print()">Save as PDF</button>
+                                      </div>
+                                    </body>
+                                  </html>
+                                `);
+                                shareWindow.document.close();
+                              }
+                            }}
+                            className="sm:hidden inline-flex items-center gap-1 px-2 py-1 bg-purple-100 dark:bg-purple-900/30 hover:bg-purple-200 text-purple-700 dark:text-purple-300 rounded-lg text-xs font-medium transition"
+                            title="Share Receipt"
+                          >
+                            <Share2 className="w-3.5 h-3.5" />
+                            Share
+>>>>>>> Stashed changes
                           </button>
                         </div>
                       </td>

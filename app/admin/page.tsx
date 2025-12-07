@@ -109,6 +109,7 @@ export default function AdminDashboard() {
           <div className="flex items-center gap-1 sm:gap-3">
             <Link
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
               href="/admin/analytics"
               className="hidden sm:flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 hover:text-indigo-600 transition px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
             >
@@ -118,6 +119,8 @@ export default function AdminDashboard() {
 =======
 <<<<<<< Updated upstream
 =======
+>>>>>>> Stashed changes
+=======
               href="/admin/analytics"
               className="flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-indigo-600 transition p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
             >
@@ -125,6 +128,9 @@ export default function AdminDashboard() {
             </Link>
             <Link
 >>>>>>> Stashed changes
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
               href="/"
               target="_blank"
@@ -173,6 +179,7 @@ export default function AdminDashboard() {
 
             {!isSelectionMode && (
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
               <>
                 <button
                   onClick={() => setShowReceiptGenerator(true)}
@@ -189,6 +196,8 @@ export default function AdminDashboard() {
               </>
 =======
 <<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
               <Link
                 href="/admin/add"
                 className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-indigo-500/20 transition hover:-translate-y-0.5"
@@ -213,6 +222,9 @@ export default function AdminDashboard() {
                 </Link>
               </>
 >>>>>>> Stashed changes
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
             )}
           </div>

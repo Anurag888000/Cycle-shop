@@ -20,6 +20,10 @@ import {
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+  Share2,
+>>>>>>> Stashed changes
 =======
   Share2,
 >>>>>>> Stashed changes
@@ -327,6 +331,7 @@ export default function SalesAnalyticsDashboard() {
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
           <div className="flex items-center gap-4">
             <Link
@@ -343,6 +348,8 @@ export default function SalesAnalyticsDashboard() {
               <p className="text-xs text-gray-500 dark:text-gray-400">
                 Track revenue and analyze sales performance
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 =======
@@ -364,6 +371,9 @@ export default function SalesAnalyticsDashboard() {
                 Track revenue and analyze sales
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -373,6 +383,7 @@ export default function SalesAnalyticsDashboard() {
             </div>
           </div>
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
@@ -389,6 +400,8 @@ export default function SalesAnalyticsDashboard() {
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
           <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={fetchAnalytics}
@@ -399,6 +412,9 @@ export default function SalesAnalyticsDashboard() {
                 className={`w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400 ${loading ? "animate-spin" : ""}`}
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -412,11 +428,14 @@ export default function SalesAnalyticsDashboard() {
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
               className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed transition"
             >
               <Download className="w-4 h-4" />
               Export Excel
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 =======
@@ -427,6 +446,9 @@ export default function SalesAnalyticsDashboard() {
               <span className="hidden sm:inline">Export</span> Excel
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -799,6 +821,7 @@ export default function SalesAnalyticsDashboard() {
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                         <div className="flex items-center justify-center gap-2">
                           <button
                             onClick={() => setViewReceipt(receipt)}
@@ -816,6 +839,8 @@ export default function SalesAnalyticsDashboard() {
                             <Printer className="w-4 h-4" />
                             Reprint
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 =======
@@ -921,6 +946,9 @@ export default function SalesAnalyticsDashboard() {
                             Share
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes

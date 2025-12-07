@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import BicycleList from "@/components/BicycleList";
 import SeedDatabase from "@/components/SeedDatabase";
+import ReceiptGenerator from "@/components/ReceiptGenerator";
 import { Bicycle } from "@/types";
 import Link from "next/link";
 import {
@@ -13,6 +14,8 @@ import {
   Trash2,
   CheckSquare,
   XSquare,
+  Receipt,
+  BarChart3,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -22,6 +25,7 @@ export default function AdminDashboard() {
   const [bicycles, setBicycles] = useState<Bicycle[]>([]);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [isSelectionMode, setIsSelectionMode] = useState(false);
+  const [showReceiptGenerator, setShowReceiptGenerator] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -104,6 +108,12 @@ export default function AdminDashboard() {
 
           <div className="flex items-center gap-3">
             <Link
+              href="/admin/analytics"
+              className="hidden sm:flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 hover:text-indigo-600 transition px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+            >
+              <BarChart3 className="w-4 h-4" /> Analytics
+            </Link>
+            <Link
               href="/"
               target="_blank"
               className="hidden sm:flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 hover:text-indigo-600 transition px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -148,12 +158,20 @@ export default function AdminDashboard() {
             </button>
 
             {!isSelectionMode && (
-              <Link
-                href="/admin/add"
-                className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-indigo-500/20 transition hover:-translate-y-0.5"
-              >
-                <Plus className="w-5 h-5" /> Add New
-              </Link>
+              <>
+                <button
+                  onClick={() => setShowReceiptGenerator(true)}
+                  className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-emerald-500/20 transition hover:-translate-y-0.5"
+                >
+                  <Receipt className="w-5 h-5" /> Generate Receipt
+                </button>
+                <Link
+                  href="/admin/add"
+                  className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-indigo-500/20 transition hover:-translate-y-0.5"
+                >
+                  <Plus className="w-5 h-5" /> Add New
+                </Link>
+              </>
             )}
           </div>
 
@@ -210,6 +228,16 @@ export default function AdminDashboard() {
               </button>
             </div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Receipt Generator Modal */}
+      <AnimatePresence>
+        {showReceiptGenerator && (
+          <ReceiptGenerator
+            bicycles={bicycles}
+            onClose={() => setShowReceiptGenerator(false)}
+          />
         )}
       </AnimatePresence>
     </div>

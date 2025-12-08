@@ -35,30 +35,30 @@ export default function Login() {
         className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden w-full max-w-4xl flex flex-col md:flex-row"
       >
         {/* Decorative Side */}
-        <div className="md:w-1/2 bg-indigo-600 p-12 text-white flex flex-col justify-between relative overflow-hidden">
+        <div className="md:w-1/2 bg-indigo-600 p-4 md:p-12 text-white flex flex-col justify-between relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
 
           <div className="relative z-10">
-            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm mb-6">
-              <Bike className="w-8 h-8 text-white" />
+            <div className="w-8 h-8 md:w-12 md:h-12 bg-white/20 rounded-lg md:rounded-xl flex items-center justify-center backdrop-blur-sm mb-3 md:mb-6">
+              <Bike className="w-5 h-5 md:w-8 md:h-8 text-white" />
             </div>
-            <h2 className="text-3xl font-bold mb-2">Welcome Back!</h2>
-            <p className="text-indigo-100">
+            <h2 className="text-xl md:text-3xl font-bold mb-1 md:mb-2">Welcome Back!</h2>
+            <p className="text-indigo-100 text-xs md:text-base">
               Manage your inventory, prices, and orders efficiently from one
               place.
             </p>
           </div>
 
-          <div className="relative z-10 text-sm text-indigo-200">
+          <div className="relative z-10 text-xs text-indigo-200 hidden md:block">
             © Waheed Cycle Shop Admin Portal
           </div>
         </div>
 
         {/* Form Side */}
-        <div className="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
-          <div className="text-center md:text-left mb-8">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <div className="md:w-1/2 p-4 md:p-12 flex flex-col justify-center">
+          <div className="text-center md:text-left mb-4 md:mb-8">
+            <h3 className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white">
               Admin Login
             </h3>
             <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
@@ -66,7 +66,7 @@ export default function Login() {
             </p>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-5">
+          <form onSubmit={handleLogin} className="space-y-3 md:space-y-5">
             <div className="space-y-1">
               <label className="text-xs font-semibold text-gray-600 dark:text-gray-400 ml-1">
                 Email
@@ -77,7 +77,7 @@ export default function Login() {
                 </div>
                 <input
                   type="email"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                  className="w-full pl-10 pr-4 py-2 md:py-3 rounded-lg md:rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition text-sm"
                   placeholder="admin@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -96,7 +96,7 @@ export default function Login() {
                 </div>
                 <input
                   type="password"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                  className="w-full pl-10 pr-4 py-2 md:py-3 rounded-lg md:rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition text-sm"
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -107,7 +107,7 @@ export default function Login() {
 
             <button
               disabled={loading}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3.5 rounded-xl font-bold shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all flex items-center justify-center gap-2 group disabled:opacity-70"
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 md:py-3.5 rounded-lg md:rounded-xl font-bold shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all flex items-center justify-center gap-2 group disabled:opacity-70 text-sm md:text-base"
             >
               {loading ? (
                 "Signing in..."

@@ -59,8 +59,16 @@ export default function ReceiptGenerator({
 
   // Generate receipt number
   const receiptNo = useMemo(() => {
-    const date = new Date();
+    const date = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
     return `WCS-${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, "0")}${String(date.getDate()).padStart(2, "0")}-${String(Math.floor(Math.random() * 10000)).padStart(4, "0")}`;
+  }, []);
+
+  const formattedDate = useMemo(() => {
+    return new Date().toLocaleString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      dateStyle: "medium",
+      timeStyle: "short",
+    });
   }, []);
 
   // Calculations
@@ -211,7 +219,7 @@ export default function ReceiptGenerator({
           <div class="receipt-info">
             <div>
               <strong>Receipt No:</strong> ${receiptNo}<br/>
-              <strong>Date:</strong> ${new Date().toLocaleDateString("en-IN")}
+              <strong>Date:</strong> ${formattedDate}
             </div>
             <div style="text-align: right;">
               ${customerName ? `<strong>Customer:</strong> ${customerName}<br/>` : ""}
@@ -304,7 +312,7 @@ export default function ReceiptGenerator({
     message += `📞 ${SHOP_DETAILS.phone}\n`;
     message += `━━━━━━━━━━━━━━━━\n`;
     message += `*Receipt No:* ${receiptNo}\n`;
-    message += `*Date:* ${new Date().toLocaleDateString("en-IN")}\n`;
+    message += `*Date:* ${formattedDate}\n`;
     if (customerName) message += `*Customer:* ${customerName}\n`;
     message += `━━━━━━━━━━━━━━━━\n\n`;
     message += `*Items:*\n`;
@@ -427,7 +435,7 @@ export default function ReceiptGenerator({
             <div class="info">
               <div>
                 <strong>Receipt:</strong> ${receiptNo}<br/>
-                <strong>Date:</strong> ${new Date().toLocaleDateString("en-IN")}
+                <strong>Date:</strong> ${formattedDate}
               </div>
               <div style="text-align: right;">
                 ${customerName ? `<strong>Customer:</strong> ${customerName}<br/>` : ""}
@@ -513,11 +521,11 @@ export default function ReceiptGenerator({
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
-        className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden"
+        className="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-4 flex justify-between items-center">
+        <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 lg:px-6 py-3 lg:py-4 flex justify-between items-center">
           <div className="flex items-center gap-3">
             <Receipt className="w-6 h-6" />
             <div>
@@ -537,7 +545,7 @@ export default function ReceiptGenerator({
 
         <div className="flex flex-col lg:flex-row h-[calc(90vh-80px)] overflow-hidden">
           {/* Left Panel - Input Form */}
-          <div className="flex-1 p-6 overflow-y-auto border-r border-gray-200 dark:border-gray-700">
+          <div className="flex-1 p-4 lg:p-6 overflow-y-auto border-r border-gray-200 dark:border-gray-700">
             {/* Customer Details */}
             <div className="mb-6">
               <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
@@ -568,7 +576,7 @@ export default function ReceiptGenerator({
               </h3>
 
               {/* From Inventory - Stack on mobile */}
-              <div className="flex flex-col sm:flex-row gap-2 mb-3">
+              <div className="flex flex-col sm:flex-row gap-3 mb-3">
                 <div className="relative flex-1">
                   <select
                     value={selectedBicycle}
@@ -595,7 +603,7 @@ export default function ReceiptGenerator({
               </div>
 
               {/* Custom Item - Stack on mobile */}
-              <div className="flex flex-col sm:flex-row gap-2">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <div className="flex gap-2 flex-1">
                   <input
                     type="text"
@@ -809,7 +817,7 @@ export default function ReceiptGenerator({
           </div>
 
           {/* Right Panel - Live Preview */}
-          <div className="flex-1 bg-gray-100 dark:bg-gray-900 p-6 overflow-y-auto">
+          <div className="flex-1 bg-gray-100 dark:bg-gray-900 p-4 lg:p-6 overflow-y-auto">
             <div className="sticky top-0">
               <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-2">
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
@@ -819,7 +827,7 @@ export default function ReceiptGenerator({
               {/* Receipt Preview */}
               <div
                 ref={receiptRef}
-                className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 max-w-sm mx-auto"
+                className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-4 sm:p-6 max-w-sm mx-auto"
               >
                 {/* Shop Header */}
                 <div className="text-center border-b-2 border-dashed border-gray-200 dark:border-gray-600 pb-4 mb-4">
@@ -845,7 +853,7 @@ export default function ReceiptGenerator({
                     </p>
                     <p>
                       <span className="font-medium">Date:</span>{" "}
-                      {new Date().toLocaleDateString("en-IN")}
+                      {formattedDate}
                     </p>
                   </div>
                   {customerName && (
@@ -860,8 +868,8 @@ export default function ReceiptGenerator({
 
                 {/* Items */}
                 {items.length > 0 ? (
-                  <div className="border-t border-gray-200 dark:border-gray-600 pt-3">
-                    <table className="w-full text-sm">
+                  <div className="border-t border-gray-200 dark:border-gray-600 pt-3 overflow-x-auto">
+                    <table className="w-full text-xs sm:text-sm">
                       <thead>
                         <tr className="text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-600">
                           <th className="text-left pb-2">Item</th>

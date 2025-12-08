@@ -984,16 +984,26 @@ export default function SalesAnalyticsDashboard() {
 
               {/* Modal Actions */}
               <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 flex gap-3">
-                <button
-                  onClick={() => {
-                    handleDownloadReceipt(viewReceipt);
-                    setViewReceipt(null);
-                  }}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-medium transition"
-                >
-                  <Printer className="w-4 h-4" />
-                  Print Receipt
-                </button>
+                  <button
+                    onClick={() => {
+                      handleDownloadReceipt(viewReceipt);
+                      setViewReceipt(null);
+                    }}
+                    className="hidden sm:flex flex-1 items-center justify-center gap-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-medium transition"
+                  >
+                    <Printer className="w-4 h-4" />
+                    Print Receipt
+                  </button>
+                  <button
+                    onClick={() => {
+                      handleDownloadReceipt(viewReceipt);
+                      setViewReceipt(null);
+                    }}
+                    className="flex sm:hidden flex-1 items-center justify-center gap-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-medium transition"
+                  >
+                    <Share2 className="w-4 h-4" />
+                    Share PDF
+                  </button>
                 <button
                   onClick={() => setViewReceipt(null)}
                   className="px-4 py-2.5 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-xl font-medium transition"

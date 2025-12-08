@@ -17,22 +17,7 @@ import {
   Filter,
   X,
   Eye,
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
   Share2,
->>>>>>> Stashed changes
-=======
-  Share2,
->>>>>>> Stashed changes
-=======
-  Share2,
->>>>>>> Stashed changes
-=======
-  Share2,
->>>>>>> Stashed changes
 } from "lucide-react";
 import Link from "next/link";
 
@@ -328,32 +313,6 @@ export default function SalesAnalyticsDashboard() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-12">
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40">
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-          <div className="flex items-center gap-4">
-            <Link
-              href="/admin"
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
-            >
-              <ArrowLeft className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-            </Link>
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <BarChart3 className="w-6 h-6 text-indigo-600" />
-                Sales Analytics
-              </h1>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                Track revenue and analyze sales performance
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex justify-between items-center">
           <div className="flex items-center gap-2 sm:gap-4">
             <Link
@@ -369,39 +328,10 @@ export default function SalesAnalyticsDashboard() {
               </h1>
               <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 hidden sm:block">
                 Track revenue and analyze sales
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
               </p>
             </div>
           </div>
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-          <div className="flex items-center gap-3">
-            <button
-              onClick={fetchAnalytics}
-              disabled={loading}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
-            >
-              <RefreshCw
-                className={`w-5 h-5 text-gray-600 dark:text-gray-400 ${loading ? "animate-spin" : ""}`}
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
           <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={fetchAnalytics}
@@ -410,50 +340,15 @@ export default function SalesAnalyticsDashboard() {
             >
               <RefreshCw
                 className={`w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400 ${loading ? "animate-spin" : ""}`}
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
               />
             </button>
             <button
               onClick={handleExportExcel}
               disabled={!analytics?.receipts?.length}
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-              className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed transition"
-            >
-              <Download className="w-4 h-4" />
-              Export Excel
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
               className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed transition"
             >
               <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               <span className="hidden sm:inline">Export</span> Excel
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
             </button>
           </div>
         </div>
@@ -818,33 +713,6 @@ export default function SalesAnalyticsDashboard() {
                         {formatCurrency(receipt.grand_total)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-center">
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                        <div className="flex items-center justify-center gap-2">
-                          <button
-                            onClick={() => setViewReceipt(receipt)}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 text-blue-700 dark:text-blue-300 rounded-lg text-sm font-medium transition"
-                            title="View Receipt"
-                          >
-                            <Eye className="w-4 h-4" />
-                            View
-                          </button>
-                          <button
-                            onClick={() => handleDownloadReceipt(receipt)}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 dark:bg-gray-700 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-700 dark:text-gray-300 hover:text-indigo-600 rounded-lg text-sm font-medium transition"
-                            title="Download/Print Receipt"
-                          >
-                            <Printer className="w-4 h-4" />
-                            Reprint
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
                         <div className="flex items-center justify-center gap-1 sm:gap-2">
                           <button
                             onClick={() => setViewReceipt(receipt)}
@@ -944,16 +812,6 @@ export default function SalesAnalyticsDashboard() {
                           >
                             <Share2 className="w-3.5 h-3.5" />
                             Share
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
                           </button>
                         </div>
                       </td>

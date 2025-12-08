@@ -149,7 +149,9 @@ export default function SalesAnalyticsDashboard() {
 
       // Date filter
       const matchesDate = filterDate
-        ? new Date(r.created_at!).toISOString().split("T")[0] === filterDate
+        ? new Date(r.created_at!).toLocaleDateString("en-CA", {
+            timeZone: "Asia/Kolkata",
+          }) === filterDate
         : true;
 
       // Amount filters

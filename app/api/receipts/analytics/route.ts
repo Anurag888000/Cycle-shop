@@ -9,51 +9,65 @@ export async function GET(request: NextRequest) {
   const endDate = searchParams.get("endDate");
 
   let dateFilter: { start: Date; end: Date };
-  const now = new Date();
+  
+  // Helper to get current date/time in IST
+  const getISTDate = () => {
+    const now = new Date();
+    // Convert to IST by adding 5 hours 30 minutes
+    const istOffset = 5.5 * 60 * 60 * 1000;
+    const utcOffset = now.getTimezoneOffset() * 60 * 1000;
+    return new Date(now.getTime() + utcOffset + istOffset);
+  };
+  
+  const istNow = getISTDate();
+  const istYear = istNow.getFullYear();
+  const istMonth = istNow.getMonth();
+  const istDate = istNow.getDate();
+  const istDay = istNow.getDay();
 
-  // Calculate date range based on period
+  // Calculate date range based on period (using IST dates but converting to UTC for query)
   switch (period) {
     case "today":
+      // Start of today in IST, converted to UTC
       dateFilter = {
-        start: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
-        end: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1),
+        start: new Date(Date.UTC(istYear, istMonth, istDate) - (5.5 * 60 * 60 * 1000)),
+        end: new Date(Date.UTC(istYear, istMonth, istDate + 1) - (5.5 * 60 * 60 * 1000)),
       };
       break;
     case "week":
-      const startOfWeek = new Date(now);
-      startOfWeek.setDate(now.getDate() - now.getDay());
-      startOfWeek.setHours(0, 0, 0, 0);
+      const weekStartDate = istDate - istDay;
       dateFilter = {
-        start: startOfWeek,
-        end: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1),
+        start: new Date(Date.UTC(istYear, istMonth, weekStartDate) - (5.5 * 60 * 60 * 1000)),
+        end: new Date(Date.UTC(istYear, istMonth, istDate + 1) - (5.5 * 60 * 60 * 1000)),
       };
       break;
     case "month":
       dateFilter = {
-        start: new Date(now.getFullYear(), now.getMonth(), 1),
-        end: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1),
+        start: new Date(Date.UTC(istYear, istMonth, 1) - (5.5 * 60 * 60 * 1000)),
+        end: new Date(Date.UTC(istYear, istMonth, istDate + 1) - (5.5 * 60 * 60 * 1000)),
       };
       break;
     case "custom":
       if (startDate && endDate) {
-        const endDateObj = new Date(endDate);
-        endDateObj.setDate(endDateObj.getDate() + 1);
+        // Custom dates are already in YYYY-MM-DD format (IST), parse them correctly
+        const [sYear, sMonth, sDay] = startDate.split('-').map(Number);
+        const [eYear, eMonth, eDay] = endDate.split('-').map(Number);
         dateFilter = {
-          start: new Date(startDate),
-          end: endDateObj,
+          start: new Date(Date.UTC(sYear, sMonth - 1, sDay) - (5.5 * 60 * 60 * 1000)),
+          end: new Date(Date.UTC(eYear, eMonth - 1, eDay + 1) - (5.5 * 60 * 60 * 1000)),
         };
       } else {
         // Default to today if custom dates not provided
         dateFilter = {
-          start: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
-          end: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1),
+          start: new Date(Date.UTC(istYear, istMonth, istDate) - (5.5 * 60 * 60 * 1000)),
+          end: new Date(Date.UTC(istYear, istMonth, istDate + 1) - (5.5 * 60 * 60 * 1000)),
         };
       }
       break;
     default:
       dateFilter = {
-        start: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
-        end: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1),
+        start: new Date(Date.UTC(istYear, istMonth, istDate) - (5.5 * 60 * 60 * 1000)),
+        end: new Date(Date.UTC(istYear, istMonth, istDate + 1) - (5.5 * 60 * 60 * 1000)),
       };
   }
 

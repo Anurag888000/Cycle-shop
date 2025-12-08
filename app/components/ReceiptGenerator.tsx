@@ -401,8 +401,18 @@ export default function ReceiptGenerator({
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <style>
             * { margin: 0; padding: 0; box-sizing: border-box; }
-            body { font-family: 'Segoe UI', Tahoma, sans-serif; padding: 15px; max-width: 100%; background: #fff; }
-            .receipt { max-width: 350px; margin: 0 auto; }
+            body { 
+              font-family: 'Segoe UI', Tahoma, sans-serif; 
+              padding: 10px; 
+              width: 100%;
+              background: #fff; 
+              overflow-x: hidden;
+            }
+            .receipt { 
+              width: 100%; 
+              max-width: 350px; 
+              margin: 0 auto; 
+            }
             .header { text-align: center; border-bottom: 2px dashed #333; padding-bottom: 15px; margin-bottom: 15px; }
             .shop-name { font-size: 20px; font-weight: bold; color: #333; }
             .shop-details { font-size: 11px; color: #666; margin-top: 5px; }
@@ -521,7 +531,7 @@ export default function ReceiptGenerator({
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
-        className="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden"
+        className="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col overflow-x-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -543,11 +553,11 @@ export default function ReceiptGenerator({
           </button>
         </div>
 
-        <div className="flex flex-col lg:flex-row h-[calc(90vh-80px)] overflow-hidden">
+        <div className="flex-1 min-h-0 flex flex-col lg:flex-row overflow-y-auto overflow-x-hidden lg:overflow-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:none]">
           {/* Left Panel - Input Form */}
-          <div className="flex-1 p-4 lg:p-6 overflow-y-auto border-r border-gray-200 dark:border-gray-700">
+          <div className="shrink-0 lg:flex-1 p-3 sm:p-4 lg:p-6 lg:overflow-y-auto overflow-x-hidden border-r border-gray-200 dark:border-gray-700">
             {/* Customer Details */}
-            <div className="mb-6">
+            <div className="mb-4 lg:mb-6">
               <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
                 Customer Details
               </h3>
@@ -570,7 +580,7 @@ export default function ReceiptGenerator({
             </div>
 
             {/* Add Items */}
-            <div className="mb-6">
+            <div className="mb-4 lg:mb-6">
               <h3 className="text-xs sm:text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 sm:mb-3">
                 Add Items
               </h3>
@@ -637,7 +647,7 @@ export default function ReceiptGenerator({
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
-                  className="mb-6"
+                  className="mb-4 lg:mb-6"
                 >
                   <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
                     Items ({items.length})
@@ -691,7 +701,7 @@ export default function ReceiptGenerator({
             </AnimatePresence>
 
             {/* Discount Toggle & Settings */}
-            <div className="mb-6">
+            <div className="mb-4 lg:mb-6">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   Discount
@@ -744,7 +754,7 @@ export default function ReceiptGenerator({
             </div>
 
             {/* GST Settings */}
-            <div className="mb-6">
+            <div className="mb-4 lg:mb-6">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   GST Tax
@@ -817,7 +827,7 @@ export default function ReceiptGenerator({
           </div>
 
           {/* Right Panel - Live Preview */}
-          <div className="flex-1 bg-gray-100 dark:bg-gray-900 p-4 lg:p-6 overflow-y-auto">
+          <div className="shrink-0 lg:flex-1 bg-gray-100 dark:bg-gray-900 p-3 sm:p-4 lg:p-6 lg:overflow-y-auto overflow-x-hidden">
             <div className="sticky top-0">
               <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-2">
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
